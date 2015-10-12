@@ -18,7 +18,7 @@ public class MyRenderer extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         if (!hasFocus) {
-            c.setBackground(new java.awt.Color(255, 255, 255)); // backgroud.
+            c.setBackground(new java.awt.Color(255, 255, 255)); // background.
             setBorder(BorderFactory.createLineBorder(Color.yellow));
         } else {
             c.setBackground(new java.awt.Color(20, 255, 20));

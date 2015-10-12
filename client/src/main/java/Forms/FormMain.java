@@ -6,11 +6,9 @@ package Forms;
 
 import XuLy.MyRenderer;
 import XuLy.SendData;
-import java.awt.List;
-import java.util.ArrayList;
+
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,8 +16,7 @@ import javax.swing.table.DefaultTableModel;
  * @author admin
  */
 public class FormMain extends javax.swing.JFrame {
-    int port = 0;
-    String namefile;
+    String nameFile;
     private DefaultTableModel model = new DefaultTableModel();
     
     //    CommonTableModel sheetTableModel;
@@ -36,24 +33,23 @@ public class FormMain extends javax.swing.JFrame {
         this.sheet = sheet;
         initComponents();
         for(int i = 0; i < 29 ; i++){
-            for(int  j = 0 ; j < 9 ; j++)
-            {
+            for(int  j = 0 ; j < 9 ; j++){
                 arr_table[i][j]="";
             }
         }
-        String []sheetfile = sheet.split(";");
-        user = sheetfile[1];
+        String []sheetFile = sheet.split(";");
+        user = sheetFile[1];
         MyRenderer myRenderer = new MyRenderer();
         table_main.setDefaultRenderer(Object.class, myRenderer);
-        namefile = sheetfile[2];
-        for(int i = 3; i<sheetfile.length;i++){
-            String []sheetrow =  sheetfile[i].split("-");
-            for(int j = 0 ; j < sheetrow.length; j++){
-                String []sheetcol = sheetrow[j].split("/");
-                arr_table[Integer.parseInt(sheetcol[1])][Integer.parseInt(sheetcol[0])] = sheetcol[2];
+        nameFile = sheetFile[2];
+        for(int i = 3; i<sheetFile.length;i++){
+            String []sheetRow =  sheetFile[i].split("-");
+            for(int j = 0 ; j < sheetRow.length; j++){
+                String []sheetCol = sheetRow[j].split("/");
+                arr_table[Integer.parseInt(sheetCol[1])][Integer.parseInt(sheetCol[0])] = sheetCol[2];
             }
         }
-        //tao du lieu table
+        // tao du lieu table
         model.addColumn("A");
         model.addColumn("B");
         model.addColumn("C");
@@ -77,7 +73,7 @@ public class FormMain extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void updatecell(String content){
+    public void updateCell(String content){
         String []temp=content.split(";");
         String []item = temp[2].split("/");
         int row = Integer.parseInt(item[1]);
@@ -92,10 +88,9 @@ public class FormMain extends javax.swing.JFrame {
         }
     }
     
-    public void cellChanged(int row, int column)
-    {
+    public void cellChanged(int row, int column){
         String values = table_main.getModel().getValueAt(row, column).toString();
-        SendData sd = new SendData(9876,"updateCell;"+user+";"+namefile+";"+column+"/"+row+"/"+values);
+        SendData sd = new SendData(9876,"updateCell;"+user+";"+ nameFile +";"+column+"/"+row+"/"+values);
         sd.start();
     }
     /**
