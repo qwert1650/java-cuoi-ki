@@ -34,7 +34,7 @@ public class User {
         this.accessibleSheets = accessibleSheets;
     }
 
-    public void addSheetToAccessibibleSheets(String sheetName) throws Exception{
+    public void addSheetToAccessibleSheets(String sheetName) throws Exception{
         XMLHelper.addSheetToUser(this.getUserName(), sheetName);
     }
 
