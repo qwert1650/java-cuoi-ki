@@ -21,11 +21,15 @@ public class UserDAO {
         return null;
     }
 
-    public static void addUser(User userToAdd) {
-        //TODO: chua xong
+    public static void addUser(User userToAdd) throws Exception {
+        XMLHelper.addUser(userToAdd);
     }
 
-    public static void removeUser(String username) {
-        //TODO: chua xong
+    public static void updateUser(User userToUpdate) throws Exception {
+        XMLHelper.updateUser(userToUpdate);
+    }
+
+    public static void removeUser(String username) throws Exception {
+        XMLHelper.removeUser(username);
     }
 }
