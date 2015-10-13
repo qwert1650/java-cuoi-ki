@@ -3,13 +3,14 @@ package DAO;
 
 
 import DTO.User;
+import helpers.Constants;
 import helpers.XMLHelper;
 import java.util.List;
 
 public class UserDAO {
 
     public static List<User> getUsers() {
-        return XMLHelper.getUsersFromXML("user/user-data.xml");
+        return XMLHelper.getUsersFromXML(Constants.USER_DATA_FILE_PATH);
     }
 
     public static User getUserByUsername(String username) {
