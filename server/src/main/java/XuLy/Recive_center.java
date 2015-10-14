@@ -125,7 +125,26 @@ public class Recive_center  extends Thread{
                 } catch (Exception ex) {
                     Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
                 }
-               
+            }
+            else if(temp[0].equals("createsheet")){
+                List<String> list = new ArrayList<String>();
+                for(int i = 1; i < temp.length; i++){
+                    list.add(temp[i]);
+                }
+                try {
+                    SheetDAO.insert_sheet(temp[1],list);
+                } catch (Exception ex) {
+                    Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else if(temp[0].equals("addfriend")){
+                List<String> list = new ArrayList<String>();
+                list.add(temp[2]);
+                try {
+                    SheetDAO.add_friend(temp[1],list);
+                } catch (Exception ex) {
+                    Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }

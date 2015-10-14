@@ -30,7 +30,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Forms.Login</mainClass>
+                            <mainClass>Forms.Loggin</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

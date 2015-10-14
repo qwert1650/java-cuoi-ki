@@ -1,7 +1,5 @@
 package DTO;
 
-import helpers.XMLHelper;
-
 import java.util.List;
 
 public class User {
@@ -32,10 +30,6 @@ public class User {
 
     public void setAccessibleSheets(List<String> accessibleSheets) {
         this.accessibleSheets = accessibleSheets;
-    }
-
-    public void addSheetToAccessibleSheets(String sheetName) throws Exception{
-        XMLHelper.addSheetToUser(this.getUserName(), sheetName);
     }
 
     public User(){

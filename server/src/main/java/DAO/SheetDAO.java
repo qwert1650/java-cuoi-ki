@@ -5,6 +5,9 @@
 package DAO;
 
 import DTO.Sheet;
+import DTO.User;
+import helpers.Constants;
+import helpers.XMLHelper;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,6 +60,30 @@ public class SheetDAO {
         return true;
     }
     
+    public static void insert_sheet(String username, List<String> namesheet) throws Exception{
+        User user = UserDAO.getUserByUsername(username);
+        List<String> sheets = user.getAccessibleSheets();
+        sheets.add(namesheet.get(namesheet.size()-1)); // Add sheet
+        user.setAccessibleSheets(sheets);
+        updateUser(user);
+        
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        Document doc = documentBuilder.newDocument();
+        // root element
+        Element rootElement = doc.createElement("files");
+        doc.appendChild(rootElement);
+        transformDocumentToXml(doc, "content_sheet/"+ namesheet.get(namesheet.size()-1));
+        transformDocumentToXml(doc, "online/"+ namesheet.get(namesheet.size()-1));
+    }
+    public static void add_friend(String username, List<String> namesheet) throws Exception{
+        User user = UserDAO.getUserByUsername(username);
+        List<String> sheets = user.getAccessibleSheets();
+        sheets.add(namesheet.get(namesheet.size()-1)); // Add sheet
+        user.setAccessibleSheets(sheets);
+        updateUser(user);
+    }
+    
     private static void transformDocumentToXml(Document document, String xmlFilePath) throws Exception{
         DOMSource source = new DOMSource(document);
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -105,14 +132,35 @@ public class SheetDAO {
         }
         return sheet;
     }
-    public static void addNodeToXML(String nameIn, String portIn) throws ParserConfigurationException
-    {
-        //        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        //        DocumentBuilder builder = dbf.newDocumentBuilder();
-        //        Document existingdoc = builder.parse("content_sheet/"+namesheet);
-        //        Element root = doc.createElement("Objects");
-        //        doc.appendChild(root);
-        //        Node copy = doc.importNode(existingdoc.getDocumentElement(), true);
-        //        root.appendChild(copy);
+    
+    public static void updateUser(User userToUpdate) throws Exception{
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        Document document = documentBuilder.parse(Constants.USER_DATA_FILE_PATH);
+        
+        NodeList nodeList = document.getElementsByTagName("user");
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node user = nodeList.item(i);
+            if (user.getNodeType() == Node.ELEMENT_NODE) {
+                Element userElement = (Element) user;
+                String userName = userElement.getElementsByTagName("username").item(0).getTextContent();
+                if(userName.equalsIgnoreCase(userToUpdate.getUserName())){
+                    Node oldAccessibleSheetsNode = userElement.getElementsByTagName("accessibleSheets").item(0);
+                    userElement.removeChild(oldAccessibleSheetsNode);
+                    
+                    // Add new accessibleSheetsNode
+                    Element newAccessibleSheets = document.createElement("accessibleSheets");
+                    for (String sheet: userToUpdate.getAccessibleSheets()){
+                        Element sheet1 = document.createElement("sheet");
+                        sheet1.setAttribute("filename", sheet);
+                        newAccessibleSheets.appendChild(sheet1);
+                    }
+                    userElement.appendChild(newAccessibleSheets);
+                    transformDocumentToXml(document, Constants.USER_DATA_FILE_PATH);
+                    System.out.println("updated user");
+                    return;
+                }
+            }
+        }
     }
 }

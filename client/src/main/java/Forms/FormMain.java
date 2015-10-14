@@ -6,9 +6,13 @@ package Forms;
 
 import XuLy.MyRenderer;
 import XuLy.SendData;
-
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,7 +20,8 @@ import javax.swing.table.DefaultTableModel;
  * @author admin
  */
 public class FormMain extends javax.swing.JFrame {
-    String nameFile;
+    int port = 0;
+    String namefile;
     private DefaultTableModel model = new DefaultTableModel();
     
     //    CommonTableModel sheetTableModel;
@@ -25,7 +30,7 @@ public class FormMain extends javax.swing.JFrame {
     /**
      * Creates new form FormMain
      */
-    String [][]arr_table = new String[29][9];
+    String [][]arr_table = new String[40][15];
     String user;
     String sheet;
     
@@ -33,23 +38,24 @@ public class FormMain extends javax.swing.JFrame {
         this.sheet = sheet;
         initComponents();
         for(int i = 0; i < 29 ; i++){
-            for(int  j = 0 ; j < 9 ; j++){
+            for(int  j = 0 ; j < 9 ; j++)
+            {
                 arr_table[i][j]="";
             }
         }
-        String []sheetFile = sheet.split(";");
-        user = sheetFile[1];
+        String []sheetfile = sheet.split(";");
+        user = sheetfile[1];
         MyRenderer myRenderer = new MyRenderer();
         table_main.setDefaultRenderer(Object.class, myRenderer);
-        nameFile = sheetFile[2];
-        for(int i = 3; i<sheetFile.length;i++){
-            String []sheetRow =  sheetFile[i].split("-");
-            for(int j = 0 ; j < sheetRow.length; j++){
-                String []sheetCol = sheetRow[j].split("/");
-                arr_table[Integer.parseInt(sheetCol[1])][Integer.parseInt(sheetCol[0])] = sheetCol[2];
+        namefile = sheetfile[2];
+        for(int i = 3; i<sheetfile.length;i++){
+            String []sheetrow =  sheetfile[i].split("-");
+            for(int j = 0 ; j < sheetrow.length; j++){
+                String []sheetcol = sheetrow[j].split("/");
+                arr_table[Integer.parseInt(sheetcol[1])][Integer.parseInt(sheetcol[0])] = sheetcol[2];
             }
         }
-        // tao du lieu table
+        //tao du lieu table
         model.addColumn("A");
         model.addColumn("B");
         model.addColumn("C");
@@ -73,7 +79,7 @@ public class FormMain extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void updateCell(String content){
+    public void updatecell(String content){
         String []temp=content.split(";");
         String []item = temp[2].split("/");
         int row = Integer.parseInt(item[1]);
@@ -88,9 +94,10 @@ public class FormMain extends javax.swing.JFrame {
         }
     }
     
-    public void cellChanged(int row, int column){
+    public void cellChanged(int row, int column)
+    {
         String values = table_main.getModel().getValueAt(row, column).toString();
-        SendData sd = new SendData(9876,"updateCell;"+user+";"+ nameFile +";"+column+"/"+row+"/"+values);
+        SendData sd = new SendData(9876,"updateCell;"+user+";"+namefile+";"+column+"/"+row+"/"+values);
         sd.start();
     }
     /**
@@ -110,9 +117,12 @@ public class FormMain extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_main = new javax.swing.JTable(model);
+        jPanel1 = new javax.swing.JPanel();
+        btn_adduser = new javax.swing.JButton();
+        txt_adduser = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
+        open_history = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -130,11 +140,46 @@ public class FormMain extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(table_main);
 
-        jMenu5.setText("File");
-        jMenuBar1.add(jMenu5);
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Mời tham gia"));
 
-        jMenu6.setText("Edit");
-        jMenuBar1.add(jMenu6);
+        btn_adduser.setText("Mời");
+        btn_adduser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_adduserActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txt_adduser, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_adduser)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_adduser)
+                    .addComponent(txt_adduser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 8, Short.MAX_VALUE))
+        );
+
+        jMenu5.setText("Lịch Sử Thao Tác");
+
+        open_history.setText("Mở Lịch Sử");
+        open_history.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                open_historyActionPerformed(evt);
+            }
+        });
+        jMenu5.add(open_history);
+
+        jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
 
@@ -142,15 +187,37 @@ public class FormMain extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 799, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void open_historyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_open_historyActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_open_historyActionPerformed
+
+    private void btn_adduserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adduserActionPerformed
+        // TODO add your handling code here:
+        SendData senddt = new SendData(9876, "addfriend;"+txt_adduser.getText()+";"+namefile);
+        senddt.start();
+        try {
+            senddt.join();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Manager_Sheet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btn_adduserActionPerformed
         
     /**
      * @param args the command line arguments
@@ -187,17 +254,20 @@ public class FormMain extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_adduser;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem open_history;
     private javax.swing.JTable table_main;
+    private javax.swing.JTextField txt_adduser;
     // End of variables declaration//GEN-END:variables
     //    private void loadSheetToTable (Sheet sheet){
     //        String[] headers = SheetService.getHeadersFromSheet(sheet);

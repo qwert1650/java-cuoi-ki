@@ -6,6 +6,7 @@ XuLy\form_main$1.class
 DTO\Sheet.class
 XuLy\form_main.class
 DTO\User.class
+helpers\Constants.class
 DAO\UserDAO.class
 DAO\SheetDAO.class
 helpers\XMLHelper.class
