@@ -2,9 +2,8 @@
     <user>
         <username>tuan123</username>
         <password>a123</password>
-        <accessibleSheets>
-        </accessibleSheets>
-    </user>
+        
+    <accessibleSheets><sheet filename="lichsu001.xml"/></accessibleSheets></user>
     <user>
         <username>tuan</username>
         <password>a123</password>

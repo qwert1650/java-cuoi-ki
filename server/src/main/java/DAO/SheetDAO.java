@@ -75,6 +75,7 @@ public class SheetDAO {
         doc.appendChild(rootElement);
         transformDocumentToXml(doc, "content_sheet/"+ namesheet.get(namesheet.size()-1));
         transformDocumentToXml(doc, "online/"+ namesheet.get(namesheet.size()-1));
+        transformDocumentToXml(doc, "history/"+ namesheet.get(namesheet.size()-1));
     }
     public static void add_friend(String username, List<String> namesheet) throws Exception{
         User user = UserDAO.getUserByUsername(username);

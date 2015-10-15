@@ -1,4 +1,5 @@
 DAO\OnlineDAO.class
+DAO\HistoryDAO.class
 XuLy\Recive_center.class
 XuLy\send_Client.class
 XuLy\Recive_center$1.class

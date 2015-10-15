@@ -4,6 +4,7 @@
  */
 package XuLy;
 
+import DAO.HistoryDAO;
 import DAO.OnlineDAO;
 import DAO.SheetDAO;
 import DAO.UserDAO;
@@ -114,6 +115,7 @@ public class Recive_center  extends Thread{
                 try {             
                     if(SheetDAO.insertvalue(temp[2], temp[3])==true)
                     {
+                        HistoryDAO.insertvalue(temp[2], temp[1], temp[3]);
                         list = OnlineDAO.getIpFromXML("online/"+temp[2]);
                          for(Online item : list){
 //                            Thread.sleep(100);
@@ -142,6 +144,13 @@ public class Recive_center  extends Thread{
                 list.add(temp[2]);
                 try {
                     SheetDAO.add_friend(temp[1],list);
+                } catch (Exception ex) {
+                    Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else if(temp[0].equals("createuser")){
+                try {
+                    UserDAO.createuser(temp[1], temp[2]);
                 } catch (Exception ex) {
                     Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
                 }
