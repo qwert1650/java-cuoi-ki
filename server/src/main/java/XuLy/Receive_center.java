@@ -21,13 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author admin
  */
-public class Recive_center  extends Thread{
+public class Receive_center extends Thread{
     UserDAO us = new UserDAO();
     boolean fag = true;
     public void run(){
@@ -35,7 +34,7 @@ public class Recive_center  extends Thread{
         try {
             serverSocket = new DatagramSocket(9876);
         } catch (SocketException ex) {
-            Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
         }
         while(fag == true)
         {
@@ -45,7 +44,7 @@ public class Recive_center  extends Thread{
             try {
                 serverSocket.receive(receivePacket);
             } catch (IOException ex) {
-                Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
             }
             String sentence = new String( receivePacket.getData());
             sentence = sentence.trim();
@@ -61,7 +60,7 @@ public class Recive_center  extends Thread{
                     try {
                         Thread.sleep(50);
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     String query = "Loggin;"+temp[1];
                     for(String item:u.getAccessibleSheets()){
@@ -70,7 +69,7 @@ public class Recive_center  extends Thread{
                     try {
                         Thread.sleep(50);
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     //JOptionPane.showMessageDialog(null,query);
                     send_Client seCl= new send_Client(query, IPAddress.getHostAddress());
@@ -78,21 +77,21 @@ public class Recive_center  extends Thread{
                     try {
                         seCl.join();
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 else{
                     try {
                         Thread.sleep(50);
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     send_Client seCl= new send_Client("Fail;0", IPAddress.getHostAddress());
                     seCl.start();
                     try {
                         seCl.join();
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }//xu li doc file sheet
@@ -105,7 +104,7 @@ public class Recive_center  extends Thread{
                 try {
                     OnlineDAO.insertvalue(temp[2],temp[1],IPAddress.getHostAddress());
                 } catch (Exception ex) {
-                    Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
                 send_Client sc = new send_Client(query, IPAddress.getHostAddress());
@@ -114,9 +113,9 @@ public class Recive_center  extends Thread{
             else if(temp[0].equals("updateCell")){
                 List<Online> list = new ArrayList<Online>() {};
                 try {
-                    if(SheetDAO.insertvalue(temp[2], temp[3])==true)
+                    if(SheetDAO.insertValue(temp[2], temp[3])==true)
                     {
-                        HistoryDAO.insertvalue(temp[2], temp[1], temp[3]);
+                        HistoryDAO.insertValue(temp[2], temp[1], temp[3]);
                         list = OnlineDAO.getIpFromXML("online/"+temp[2]);
                         for(Online item : list){
                             //                            Thread.sleep(100);
@@ -126,7 +125,7 @@ public class Recive_center  extends Thread{
                         }
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             else if(temp[0].equals("createsheet")){
@@ -137,7 +136,7 @@ public class Recive_center  extends Thread{
                 try {
                     SheetDAO.insert_sheet(temp[1],list);
                 } catch (Exception ex) {
-                    Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             else if(temp[0].equals("addfriend")){
@@ -146,14 +145,14 @@ public class Recive_center  extends Thread{
                 try {
                     SheetDAO.add_friend(temp[1],list);
                 } catch (Exception ex) {
-                    Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             else if(temp[0].equals("createuser")){
                 try {
                     UserDAO.createuser(temp[1], temp[2]);
                 } catch (Exception ex) {
-                    Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             else if(temp[0].equals("fullhistory")){
@@ -167,14 +166,14 @@ public class Recive_center  extends Thread{
                 try {
                     seCl.join();
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             else if(temp[0].equals("closeapp")){
                 try {
                     OnlineDAO.updateOnline(IPAddress.getHostAddress(), temp[2]);
                 } catch (Exception ex) {
-                    Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }

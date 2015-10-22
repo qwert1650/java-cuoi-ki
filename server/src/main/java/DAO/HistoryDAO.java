@@ -78,7 +78,7 @@ public class HistoryDAO {
     }
     
     
-    public static boolean insertvalue(String filenames,String nameuser, String content) throws Exception{
+    public static boolean insertValue(String filenames, String nameuser, String content) throws Exception{
         String []temp = content.split("/");
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();

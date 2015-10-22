@@ -15,7 +15,7 @@ public class form_main extends javax.swing.JFrame {
      */
     public form_main() {
         initComponents();
-        Recive_center rc_ct = new Recive_center();
+        Receive_center rc_ct = new Receive_center();
         rc_ct.start();
     }
 

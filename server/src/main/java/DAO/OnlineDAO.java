@@ -60,7 +60,6 @@ public class OnlineDAO {
             }
         }
         transformDocumentToXml(document, "online/"+file);
-        return;
     }
     
     private static void transformDocumentToXml(Document document, String xmlFilePath) throws Exception{

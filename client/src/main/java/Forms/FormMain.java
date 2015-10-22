@@ -6,13 +6,11 @@ package Forms;
 
 import XuLy.MyRenderer;
 import XuLy.SendData;
-import java.awt.List;
-import java.util.ArrayList;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,8 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author admin
  */
 public class FormMain extends javax.swing.JFrame {
-    int port = 0;
-    String namefile;
+    String nameFile;
     private DefaultTableModel model = new DefaultTableModel();
     
     //    CommonTableModel sheetTableModel;
@@ -47,7 +44,7 @@ public class FormMain extends javax.swing.JFrame {
         user = sheetfile[1];
         MyRenderer myRenderer = new MyRenderer();
         table_main.setDefaultRenderer(Object.class, myRenderer);
-        namefile = sheetfile[2];
+        nameFile = sheetfile[2];
         for(int i = 3; i<sheetfile.length;i++){
             String []sheetrow =  sheetfile[i].split("-");
             for(int j = 0 ; j < sheetrow.length; j++){
@@ -97,7 +94,7 @@ public class FormMain extends javax.swing.JFrame {
     public void cellChanged(int row, int column)
     {
         String values = table_main.getModel().getValueAt(row, column).toString();
-        SendData sd = new SendData(9876,"updateCell;"+user+";"+namefile+";"+column+"/"+row+"/"+values);
+        SendData sd = new SendData(9876,"updateCell;"+user+";"+ nameFile +";"+column+"/"+row+"/"+values);
         sd.start();
     }
     /**
@@ -236,7 +233,7 @@ public class FormMain extends javax.swing.JFrame {
 
     private void btn_adduserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adduserActionPerformed
         // TODO add your handling code here:
-        SendData senddt = new SendData(9876, "addfriend;"+txt_adduser.getText()+";"+namefile);
+        SendData senddt = new SendData(9876, "addfriend;"+txt_adduser.getText()+";"+ nameFile);
         senddt.start();
         try {
             senddt.join();
@@ -247,7 +244,7 @@ public class FormMain extends javax.swing.JFrame {
 
     private void btn_historyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historyActionPerformed
         // TODO add your handling code here:
-        SendData senddt = new SendData(9876,"fullhistory;"+user+";"+namefile);
+        SendData senddt = new SendData(9876,"fullhistory;"+user+";"+ nameFile);
         senddt.start();
         try {
             senddt.join();
@@ -258,7 +255,7 @@ public class FormMain extends javax.swing.JFrame {
 
     private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
         // TODO add your handling code here:
-        SendData senddt = new SendData(9876, "closeapp;"+user+";"+namefile);
+        SendData senddt = new SendData(9876, "closeapp;"+user+";"+ nameFile);
         senddt.start();
         this.setVisible(false);
     }//GEN-LAST:event_btn_closeActionPerformed

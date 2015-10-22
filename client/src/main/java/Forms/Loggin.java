@@ -4,7 +4,7 @@
  */
 package Forms;
 
-import XuLy.ReciveData;
+import XuLy.ReceiveData;
 import XuLy.SendData;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -147,7 +147,7 @@ public class Loggin extends javax.swing.JFrame {
         String a = txt_tendannhap.getText();
         SendData sd = new SendData(9876,"loggin;"+txt_tendannhap.getText() +";"+txt_matkhau.getText());
         sd.start();
-        ReciveData rcdt = new ReciveData();
+        ReceiveData rcdt = new ReceiveData();
         rcdt.start();
         try {
             Thread.sleep(300);

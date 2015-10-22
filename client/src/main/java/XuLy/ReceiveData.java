@@ -6,25 +6,22 @@ package XuLy;
 
 import Forms.FormMain;
 import Forms.History;
-import Forms.Loggin;
 import Forms.Manager_Sheet;
-import java.awt.List;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author admin
  */
-public class ReciveData extends Thread{
+public class ReceiveData extends Thread{
     boolean fag = true;
     boolean kq = false;
     public boolean result(){
@@ -37,7 +34,7 @@ public class ReciveData extends Thread{
         try {
             serverSocket = new DatagramSocket(9876);
         } catch (SocketException ex) {
-            Logger.getLogger(ReciveData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReceiveData.class.getName()).log(Level.SEVERE, null, ex);
         }
         while(fag == true)
         {
@@ -47,7 +44,7 @@ public class ReciveData extends Thread{
             try {
                 serverSocket.receive(receivePacket);
             } catch (IOException ex) {
-                Logger.getLogger(ReciveData.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReceiveData.class.getName()).log(Level.SEVERE, null, ex);
             }
             String sentence = new String(receivePacket.getData());
             sentence = sentence.trim();
