@@ -5,8 +5,10 @@
 package XuLy;
 
 import Forms.FormMain;
+import Forms.History;
 import Forms.Loggin;
 import Forms.Manager_Sheet;
+import java.awt.List;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -29,6 +31,7 @@ public class ReciveData extends Thread{
         return kq;
     }
     Forms.FormMain frmmain;
+    Forms.History frmhistory;
     public void run(){
         DatagramSocket serverSocket = null;
         try {
@@ -69,6 +72,17 @@ public class ReciveData extends Thread{
             }
             else if(temp[0].equals("updatelientuc")){
                 frmmain.updatecell(sentence);
+            }
+            else if(temp[0].equals("fullhistory")){
+                ArrayList<String> contenthis = new ArrayList<String>();
+                String []content = temp[3].split("~");
+                for(String item : content){
+                    String []contentcol = item.split("/");
+                    String noidung = contentcol[0]+"~"+contentcol[1]+"~"+contentcol[2]+"~"+contentcol[3]+"~"+contentcol[4];
+                    contenthis.add(noidung);
+                }
+                frmhistory = new History(contenthis);
+                frmhistory.setVisible(true);
             }
         }
     }

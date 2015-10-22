@@ -120,6 +120,8 @@ public class FormMain extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btn_adduser = new javax.swing.JButton();
         txt_adduser = new javax.swing.JTextField();
+        btn_history = new javax.swing.JButton();
+        btn_close = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         open_history = new javax.swing.JMenuItem();
@@ -169,6 +171,20 @@ public class FormMain extends javax.swing.JFrame {
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
+        btn_history.setText("Lịch Sử");
+        btn_history.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_historyActionPerformed(evt);
+            }
+        });
+
+        btn_close.setText("Close");
+        btn_close.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_closeActionPerformed(evt);
+            }
+        });
+
         jMenu5.setText("Lịch Sử Thao Tác");
 
         open_history.setText("Mở Lịch Sử");
@@ -189,13 +205,23 @@ public class FormMain extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_history)
+                .addGap(14, 14, 14)
+                .addComponent(btn_close)
+                .addContainerGap())
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 799, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_history)
+                            .addComponent(btn_close))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE))
         );
@@ -218,6 +244,24 @@ public class FormMain extends javax.swing.JFrame {
             Logger.getLogger(Manager_Sheet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btn_adduserActionPerformed
+
+    private void btn_historyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historyActionPerformed
+        // TODO add your handling code here:
+        SendData senddt = new SendData(9876,"fullhistory;"+user+";"+namefile);
+        senddt.start();
+        try {
+            senddt.join();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(FormMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btn_historyActionPerformed
+
+    private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
+        // TODO add your handling code here:
+        SendData senddt = new SendData(9876, "closeapp;"+user+";"+namefile);
+        senddt.start();
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_closeActionPerformed
         
     /**
      * @param args the command line arguments
@@ -255,6 +299,8 @@ public class FormMain extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_adduser;
+    private javax.swing.JButton btn_close;
+    private javax.swing.JButton btn_history;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

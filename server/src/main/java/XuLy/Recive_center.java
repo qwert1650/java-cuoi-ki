@@ -8,10 +8,10 @@ import DAO.HistoryDAO;
 import DAO.OnlineDAO;
 import DAO.SheetDAO;
 import DAO.UserDAO;
+import DTO.History;
 import DTO.Online;
 import DTO.Sheet;
 import DTO.User;
-import helpers.XMLHelper;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -19,7 +19,6 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -53,6 +52,7 @@ public class Recive_center  extends Thread{
             InetAddress IPAddress = receivePacket.getAddress();
             String temp[];
             temp=sentence.split(";");
+            //JOptionPane.showMessageDialog(null,sentence);
             //kiem tra dang nhap
             if(temp[0].equals("loggin")){
                 //neu dang nhap thanh cong
@@ -62,7 +62,7 @@ public class Recive_center  extends Thread{
                         Thread.sleep(50);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
-                    }                  
+                    }
                     String query = "Loggin;"+temp[1];
                     for(String item:u.getAccessibleSheets()){
                         query = query+";"+item;
@@ -72,6 +72,7 @@ public class Recive_center  extends Thread{
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    //JOptionPane.showMessageDialog(null,query);
                     send_Client seCl= new send_Client(query, IPAddress.getHostAddress());
                     seCl.start();
                     try {
@@ -106,19 +107,19 @@ public class Recive_center  extends Thread{
                 } catch (Exception ex) {
                     Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
                 }
-               
+                
                 send_Client sc = new send_Client(query, IPAddress.getHostAddress());
                 sc.start();
             }//cap nhat noi dung cell
             else if(temp[0].equals("updateCell")){
                 List<Online> list = new ArrayList<Online>() {};
-                try {             
+                try {
                     if(SheetDAO.insertvalue(temp[2], temp[3])==true)
                     {
                         HistoryDAO.insertvalue(temp[2], temp[1], temp[3]);
                         list = OnlineDAO.getIpFromXML("online/"+temp[2]);
-                         for(Online item : list){
-//                            Thread.sleep(100);
+                        for(Online item : list){
+                            //                            Thread.sleep(100);
                             send_Client sc = new send_Client("updatelientuc;"+temp[1]+";"+temp[3], item.getIp());
                             sc.start();
                             sc.join();
@@ -151,6 +152,27 @@ public class Recive_center  extends Thread{
             else if(temp[0].equals("createuser")){
                 try {
                     UserDAO.createuser(temp[1], temp[2]);
+                } catch (Exception ex) {
+                    Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else if(temp[0].equals("fullhistory")){
+                String query="fullhistory;"+temp[1]+";"+temp[2]+";";
+                List<History> hist = HistoryDAO.getHistory(temp[2]);
+                for(History item : hist){
+                    query = query + item.getUsername()+"/"+item.getDate()+"/"+item.getColumn()+"/"+item.getRow()+"/"+item.getContent()+"~";
+                }
+                send_Client seCl= new send_Client(query, IPAddress.getHostAddress());
+                seCl.start();
+                try {
+                    seCl.join();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else if(temp[0].equals("closeapp")){
+                try {
+                    OnlineDAO.updateOnline(IPAddress.getHostAddress(), temp[2]);
                 } catch (Exception ex) {
                     Logger.getLogger(Recive_center.class.getName()).log(Level.SEVERE, null, ex);
                 }

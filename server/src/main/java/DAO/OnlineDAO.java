@@ -5,7 +5,6 @@
 package DAO;
 
 import DTO.Online;
-import DTO.User;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +41,26 @@ public class OnlineDAO {
         root.appendChild(sheetElement);
         transformDocumentToXml(document, "online/"+filenames);
         return true;
+    }
+    
+    public static void updateOnline(String ip, String file) throws Exception{
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        Document document = documentBuilder.parse("online/"+file);
+        document.getDocumentElement().normalize();
+        NodeList nodeList = document.getElementsByTagName("users");
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element userElement = (Element)node;
+                String userName = userElement.getElementsByTagName("ip").item(0).getTextContent();
+                if(userName.equalsIgnoreCase(ip)){
+                    node.getParentNode().removeChild(node);
+                }
+            }
+        }
+        transformDocumentToXml(document, "online/"+file);
+        return;
     }
     
     private static void transformDocumentToXml(Document document, String xmlFilePath) throws Exception{

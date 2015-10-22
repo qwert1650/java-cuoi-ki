@@ -6,8 +6,6 @@ package Forms;
 
 import XuLy.ReciveData;
 import XuLy.SendData;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
@@ -156,9 +154,9 @@ public class Loggin extends javax.swing.JFrame {
         } catch (InterruptedException ex) {
             Logger.getLogger(Loggin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //        if(rcdt.result()== true){
-        //            this.setVisible(false);
-        //        }
+//        if(rcdt.result()== true){
+//            this.setVisible(false);
+//        }
     }//GEN-LAST:event_btn_dangnhapActionPerformed
     
     private void btn_dangkyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dangkyActionPerformed
