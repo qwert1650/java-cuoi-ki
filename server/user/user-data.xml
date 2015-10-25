@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><users>
+    <user>
+        <username>tuan</username>
+        <password>123</password>
+    <accessibleSheets><sheet filename="demo001.xml"/> </accessibleSheets></user>
+<user><username>abc</username><password>123</password><accessibleSheets><sheet filename="demo001.xml"/></accessibleSheets></user></users>
