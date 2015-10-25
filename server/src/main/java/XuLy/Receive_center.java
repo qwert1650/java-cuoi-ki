@@ -55,7 +55,7 @@ public class Receive_center extends Thread{
             //kiem tra dang nhap
             if(temp[0].equals("loggin")){
                 //neu dang nhap thanh cong
-                User u= us.getUserByUsername(temp[1]);
+                User u= us.getLoggin(temp[1],temp[2]);
                 if(u != null ){
                     try {
                         Thread.sleep(50);

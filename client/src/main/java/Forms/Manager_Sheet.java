@@ -9,6 +9,7 @@ import XuLy.SendData;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +27,7 @@ public class Manager_Sheet extends javax.swing.JFrame {
         initComponents();
     }
     public Manager_Sheet(ArrayList<String> list) {
+        txt_filename.setVisible(true);
         initComponents();
         this.list = list;
         this.username = list.get(1);
@@ -68,6 +70,8 @@ public class Manager_Sheet extends javax.swing.JFrame {
 
         jLabel1.setText("Tên File");
 
+        txt_filename.setEditable(false);
+
         btn_open.setText("Open");
         btn_open.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,7 +107,7 @@ public class Manager_Sheet extends javax.swing.JFrame {
                                 .addComponent(btn_createfile)
                                 .addGap(18, 18, 18)
                                 .addComponent(btn_cancel)))
-                        .addGap(0, 14, Short.MAX_VALUE)))
+                        .addGap(0, 26, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -127,31 +131,34 @@ public class Manager_Sheet extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_open, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(txt_filename, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_open))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(10, 10, 10))
+                            .addComponent(txt_filename, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 33, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_filename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_filename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_open)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -165,32 +172,43 @@ public class Manager_Sheet extends javax.swing.JFrame {
     
     private void btn_openActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_openActionPerformed
         // TODO add your handling code here:
-        SendData senddt = new SendData(9876, "readfire;"+list.get(1)+";"+txt_filename.getText());
-        senddt.start();
-//        this.setVisible(false);
+        if(!txt_filename.getText().equals("")){
+            SendData senddt = new SendData(9876, "readfire;"+list.get(1)+";"+txt_filename.getText());
+            senddt.start();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn file cần mở");
+        }
+        //        this.setVisible(false);
     }//GEN-LAST:event_btn_openActionPerformed
-
+    
     private void btn_createfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createfileActionPerformed
         // TODO add your handling code here:
-        String query="";
-        for(int i = 2; i < list.size();i++){
-            query = query + list.get(i)+";";
+        if(txt_createfile.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Tên file không được để trống!");
         }
-        SendData senddt = new SendData(9876, "createsheet;"+username+";"+query+txt_createfile.getText()+".xml");
-        senddt.start();
-        try {
-            senddt.join();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Manager_Sheet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        list.add(txt_createfile.getText()+".xml");
-        model.setRowCount(0);
-        for(int i=0; i<list.size();i++ ){
-            if(i>=2){
-                model.addRow(new Object[]{list.get(i)});
+        else{
+            String query="";
+            for(int i = 2; i < list.size();i++){
+                query = query + list.get(i)+";";
             }
+            SendData senddt = new SendData(9876, "createsheet;"+username+";"+query+txt_createfile.getText()+".xml");
+            senddt.start();
+            try {
+                senddt.join();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Manager_Sheet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            list.add(txt_createfile.getText()+".xml");
+            model.setRowCount(0);
+            for(int i=0; i<list.size();i++ ){
+                if(i>=2){
+                    model.addRow(new Object[]{list.get(i)});
+                }
+            }
+            table_sheet.repaint();
         }
-        table_sheet.repaint();
     }//GEN-LAST:event_btn_createfileActionPerformed
     
     /**

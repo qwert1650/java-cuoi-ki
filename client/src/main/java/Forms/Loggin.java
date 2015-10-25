@@ -40,7 +40,7 @@ public class Loggin extends javax.swing.JFrame {
         txt_tendannhap = new javax.swing.JTextField();
         txt_matkhau = new javax.swing.JPasswordField();
         btn_dangnhap = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btn_huy = new javax.swing.JButton();
         btn_dangky = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,7 +63,12 @@ public class Loggin extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
+        btn_huy.setText("Hủy");
+        btn_huy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_huyActionPerformed(evt);
+            }
+        });
 
         btn_dangky.setText("Đăng Ký");
         btn_dangky.addActionListener(new java.awt.event.ActionListener() {
@@ -83,10 +88,10 @@ public class Loggin extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(btn_dangnhap)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_huy))
                     .addComponent(txt_tendannhap)
                     .addComponent(txt_matkhau, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
                 .addContainerGap(22, Short.MAX_VALUE))
@@ -109,7 +114,7 @@ public class Loggin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_dangnhap, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btn_huy))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addComponent(btn_dangky)
                 .addContainerGap())
@@ -177,9 +182,15 @@ public class Loggin extends javax.swing.JFrame {
             } catch (InterruptedException ex) {
                 Logger.getLogger(Loggin.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JOptionPane.showConfirmDialog(null, "Đăng Ký Thành Công");
+            JOptionPane.showMessageDialog(null, "Đăng Ký Thành Công");
         }
     }//GEN-LAST:event_btn_dangkyActionPerformed
+
+    private void btn_huyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_huyActionPerformed
+        // TODO add your handling code here:
+        txt_matkhau.setText(null);
+        txt_tendannhap.setText(null);
+    }//GEN-LAST:event_btn_huyActionPerformed
     
     /**
      * @param args the command line arguments
@@ -218,7 +229,7 @@ public class Loggin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_dangky;
     private javax.swing.JButton btn_dangnhap;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_huy;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;

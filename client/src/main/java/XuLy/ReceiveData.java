@@ -16,6 +16,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -80,6 +81,9 @@ public class ReceiveData extends Thread{
                 }
                 frmhistory = new History(contenthis);
                 frmhistory.setVisible(true);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Mất kết nối mạng");
             }
         }
     }

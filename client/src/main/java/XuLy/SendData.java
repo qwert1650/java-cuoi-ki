@@ -34,7 +34,7 @@ public class SendData extends Thread{
         }
         InetAddress IPAddress = null;
         try {
-            IPAddress = InetAddress.getByName("192.168.10.2");//Ip cua may nhan
+            IPAddress = InetAddress.getByName("192.168.10.3");//Ip cua may nhan
         } catch (UnknownHostException ex) {
             Logger.getLogger(SendData.class.getName()).log(Level.SEVERE, null, ex);
         }

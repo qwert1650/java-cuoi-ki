@@ -29,6 +29,14 @@ public class UserDAO {
         return null;
     }
     
+    public static User getLoggin(String username, String pass) {
+        List<User> users = getUsers();
+        for(User user: users){
+            if(user.getUserName().equalsIgnoreCase(username) && user.getPassword().equals(pass))
+                return user;
+        }
+        return null;
+    }
     public static boolean createuser(String username, String password) throws Exception{
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -59,7 +67,4 @@ public class UserDAO {
         StreamResult result = new StreamResult(xmlFilePath);
         transformer.transform(source, result);
     }
-    //    public static void removeUser(String username) {
-    //        //TODO:
-//    }
 }
