@@ -18,11 +18,11 @@ public class MyRenderer extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         if (!hasFocus) {
-            c.setBackground(new java.awt.Color(255, 255, 255)); // backgroud.
-            setBorder(BorderFactory.createLineBorder(Color.yellow));
+            //c.setBackground(new java.awt.Color(255, 255, 255)); // backgroud.
+            setBorder(BorderFactory.createLineBorder(Color.black));
         } else {
-            c.setBackground(new java.awt.Color(20, 255, 20));
-            setBorder(BorderFactory.createLineBorder(Color.RED));
+            //c.setBackground(new java.awt.Color(20, 255, 20));
+            setBorder(BorderFactory.createLineBorder(Color.WHITE));
         }
         return c;
     }

@@ -49,9 +49,6 @@ private DefaultTableModel model = new DefaultTableModel();
         jScrollPane2 = new javax.swing.JScrollPane();
         table_history = new javax.swing.JTable(model);
         bnt_close = new javax.swing.JButton();
-        btn_xem = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jScrollPane2.setViewportView(table_history);
 
@@ -62,8 +59,6 @@ private DefaultTableModel model = new DefaultTableModel();
             }
         });
 
-        btn_xem.setText("Xem");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,8 +66,6 @@ private DefaultTableModel model = new DefaultTableModel();
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_xem)
-                .addGap(18, 18, 18)
                 .addComponent(bnt_close)
                 .addContainerGap())
         );
@@ -81,9 +74,7 @@ private DefaultTableModel model = new DefaultTableModel();
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bnt_close)
-                    .addComponent(btn_xem))
+                .addComponent(bnt_close)
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
@@ -131,7 +122,6 @@ private DefaultTableModel model = new DefaultTableModel();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bnt_close;
-    private javax.swing.JButton btn_xem;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable table_history;
     // End of variables declaration//GEN-END:variables

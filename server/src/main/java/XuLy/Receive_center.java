@@ -51,8 +51,6 @@ public class Receive_center extends Thread{
             InetAddress IPAddress = receivePacket.getAddress();
             String temp[];
             temp=sentence.split(";");
-            //JOptionPane.showMessageDialog(null,sentence);
-            //kiem tra dang nhap
             if(temp[0].equals("loggin")){
                 //neu dang nhap thanh cong
                 User u= us.getLoggin(temp[1],temp[2]);
@@ -149,11 +147,31 @@ public class Receive_center extends Thread{
                 }
             }
             else if(temp[0].equals("createuser")){
-                try {
-                    UserDAO.createuser(temp[1], temp[2]);
-                } catch (Exception ex) {
-                    Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
+                User u= us.getUserByUsername(temp[1]);
+                if(u != null){
+                    send_Client sd = new send_Client("createfalse", IPAddress.getHostAddress());
+                    sd.start();
+                    try {
+                        sd.join();
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
+                else{
+                    try {
+                        UserDAO.createuser(temp[1], temp[2]);
+                    } catch (Exception ex) {
+                        Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    send_Client sd = new send_Client("createtrue", IPAddress.getHostAddress());
+                    sd.start();
+                    try {
+                        sd.join();
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                
             }
             else if(temp[0].equals("fullhistory")){
                 String query="fullhistory;"+temp[1]+";"+temp[2]+";";
@@ -174,6 +192,32 @@ public class Receive_center extends Thread{
                     OnlineDAO.updateOnline(IPAddress.getHostAddress(), temp[2]);
                 } catch (Exception ex) {
                     Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else if(temp[0].equals("updatelistsheet")){
+                User u = us.getRefreshsheet(temp[1]);
+                if(u != null ){
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    String query = "updatelistsheet;"+temp[1];
+                    for(String item:u.getAccessibleSheets()){
+                        query = query+";"+item;
+                    }
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    send_Client seCl= new send_Client(query, IPAddress.getHostAddress());
+                    seCl.start();
+                    try {
+                        seCl.join();
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         }

@@ -23,6 +23,8 @@ public class Loggin extends javax.swing.JFrame {
      */
     public Loggin() {
         initComponents();
+        ReceiveData rcdt = new ReceiveData();
+        rcdt.start();
     }
     
     /**
@@ -43,7 +45,6 @@ public class Loggin extends javax.swing.JFrame {
         btn_huy = new javax.swing.JButton();
         btn_dangky = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Đăng Nhập"));
@@ -152,16 +153,11 @@ public class Loggin extends javax.swing.JFrame {
         String a = txt_tendannhap.getText();
         SendData sd = new SendData(9876,"loggin;"+txt_tendannhap.getText() +";"+txt_matkhau.getText());
         sd.start();
-        ReceiveData rcdt = new ReceiveData();
-        rcdt.start();
         try {
             Thread.sleep(300);
         } catch (InterruptedException ex) {
             Logger.getLogger(Loggin.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        if(rcdt.result()== true){
-//            this.setVisible(false);
-//        }
     }//GEN-LAST:event_btn_dangnhapActionPerformed
     
     private void btn_dangkyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dangkyActionPerformed
@@ -182,7 +178,6 @@ public class Loggin extends javax.swing.JFrame {
             } catch (InterruptedException ex) {
                 Logger.getLogger(Loggin.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JOptionPane.showMessageDialog(null, "Đăng Ký Thành Công");
         }
     }//GEN-LAST:event_btn_dangkyActionPerformed
 

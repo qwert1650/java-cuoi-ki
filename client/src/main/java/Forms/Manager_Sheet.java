@@ -37,8 +37,7 @@ public class Manager_Sheet extends javax.swing.JFrame {
                 model.addRow(new Object[]{list.get(i)});
             }
         }
-        //model.addRow(temp);
-        txt_filename.setVisible(true);
+        txt_filename.setVisible(false);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,8 +58,7 @@ public class Manager_Sheet extends javax.swing.JFrame {
         txt_createfile = new javax.swing.JTextField();
         btn_createfile = new javax.swing.JButton();
         btn_cancel = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        btn_refresh = new javax.swing.JButton();
 
         table_sheet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -125,6 +123,13 @@ public class Manager_Sheet extends javax.swing.JFrame {
 
         jLabel2.getAccessibleContext().setAccessibleName("T");
 
+        btn_refresh.setText("ReFresh");
+        btn_refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_refreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,7 +137,10 @@ public class Manager_Sheet extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_open, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btn_refresh)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_open, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -156,7 +164,9 @@ public class Manager_Sheet extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_open)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_open)
+                    .addComponent(btn_refresh))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -174,12 +184,12 @@ public class Manager_Sheet extends javax.swing.JFrame {
         if(!txt_filename.getText().equals("")){
             SendData senddt = new SendData(9876, "readfire;"+list.get(1)+";"+txt_filename.getText());
             senddt.start();
+            txt_filename.setText("");
         }
         else
         {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn file cần mở");
         }
-        //        this.setVisible(false);
     }//GEN-LAST:event_btn_openActionPerformed
     
     private void btn_createfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createfileActionPerformed
@@ -210,6 +220,23 @@ public class Manager_Sheet extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_createfileActionPerformed
     
+    private void btn_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refreshActionPerformed
+        // TODO add your handling code here:
+        SendData senddt = new SendData(9876, "updatelistsheet;"+username);
+        senddt.start();
+    }//GEN-LAST:event_btn_refreshActionPerformed
+    
+    public void refreshlistfile(ArrayList<String> list){
+        this.list = list;
+        this.username = list.get(1);
+        model.setRowCount(0);
+        for(int i=0; i<list.size();i++ ){
+            if(i>=2){
+                model.addRow(new Object[]{list.get(i)});
+            }
+        }
+        table_sheet.repaint();
+    }
     /**
      * @param args the command line arguments
      */
@@ -248,6 +275,7 @@ public class Manager_Sheet extends javax.swing.JFrame {
     private javax.swing.JButton btn_cancel;
     private javax.swing.JButton btn_createfile;
     private javax.swing.JButton btn_open;
+    private javax.swing.JButton btn_refresh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

@@ -37,6 +37,16 @@ public class UserDAO {
         }
         return null;
     }
+    
+    public static User getRefreshsheet(String username) {
+        List<User> users = getUsers();
+        for(User user: users){
+            if(user.getUserName().equalsIgnoreCase(username))
+                return user;
+        }
+        return null;
+    }
+    
     public static boolean createuser(String username, String password) throws Exception{
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();

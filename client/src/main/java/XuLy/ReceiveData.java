@@ -30,6 +30,7 @@ public class ReceiveData extends Thread{
     }
     Forms.FormMain frmmain;
     Forms.History frmhistory;
+    Forms.Manager_Sheet frmmanager_sheet;
     public void run(){
         DatagramSocket serverSocket = null;
         try {
@@ -59,8 +60,9 @@ public class ReceiveData extends Thread{
                 }
                 kq = true;
                 result();
-                Forms.Manager_Sheet frmmanager = new Manager_Sheet(list);
-                frmmanager.setVisible(true);
+//                Forms.Manager_Sheet frmmanager = new Manager_Sheet(list);
+                frmmanager_sheet = new Manager_Sheet(list);
+                frmmanager_sheet.setVisible(true);
             }
             else if(temp[0].equals("updateContent")){
                 kq = true;
@@ -81,6 +83,19 @@ public class ReceiveData extends Thread{
                 }
                 frmhistory = new History(contenthis);
                 frmhistory.setVisible(true);
+            }
+            else if(temp[0].equals("updatelistsheet")){
+                ArrayList<String> list = new ArrayList<String>();
+                for(String item: temp){
+                    list.add(item);
+                }
+                frmmanager_sheet.refreshlistfile(list);
+            }
+            else if(temp[0].equals("createtrue")){
+                JOptionPane.showMessageDialog(null, "Đăng kí thành công!");
+            }
+            else if(temp[0].equals("createfalse")){
+                JOptionPane.showMessageDialog(null, "Tài khoản đã tồn tại. Vui lòng chọn tài khoản khác!");
             }
             else{
                 JOptionPane.showMessageDialog(null, "Mất kết nối mạng");

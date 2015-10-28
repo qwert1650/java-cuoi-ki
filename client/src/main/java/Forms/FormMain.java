@@ -20,13 +20,6 @@ import javax.swing.table.DefaultTableModel;
 public class FormMain extends javax.swing.JFrame {
     String nameFile;
     private DefaultTableModel model = new DefaultTableModel();
-    
-    //    CommonTableModel sheetTableModel;
-    //    Sheet sheet;
-    //    Cell lastChangedCell;
-    /**
-     * Creates new form FormMain
-     */
     String [][]arr_table = new String[40][15];
     String user;
     String sheet;
@@ -71,6 +64,7 @@ public class FormMain extends javax.swing.JFrame {
                     cellChanged(e.getFirstRow(), e.getColumn());
             }
         });
+        btn_adduser.setEnabled(false);
     }
     public FormMain() {
         initComponents();
@@ -120,8 +114,6 @@ public class FormMain extends javax.swing.JFrame {
         btn_history = new javax.swing.JButton();
         btn_close = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu5 = new javax.swing.JMenu();
-        open_history = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -135,8 +127,6 @@ public class FormMain extends javax.swing.JFrame {
 
         jMenu4.setText("jMenu4");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jScrollPane1.setViewportView(table_main);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Mời tham gia"));
@@ -145,6 +135,12 @@ public class FormMain extends javax.swing.JFrame {
         btn_adduser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_adduserActionPerformed(evt);
+            }
+        });
+
+        txt_adduser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_adduserKeyPressed(evt);
             }
         });
 
@@ -181,19 +177,6 @@ public class FormMain extends javax.swing.JFrame {
                 btn_closeActionPerformed(evt);
             }
         });
-
-        jMenu5.setText("Lịch Sử Thao Tác");
-
-        open_history.setText("Mở Lịch Sử");
-        open_history.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                open_historyActionPerformed(evt);
-            }
-        });
-        jMenu5.add(open_history);
-
-        jMenuBar1.add(jMenu5);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -201,6 +184,7 @@ public class FormMain extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_history)
@@ -212,24 +196,17 @@ public class FormMain extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_history)
-                            .addComponent(btn_close))))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE))
+                    .addComponent(btn_history, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_close, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void open_historyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_open_historyActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_open_historyActionPerformed
 
     private void btn_adduserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adduserActionPerformed
         // TODO add your handling code here:
@@ -240,6 +217,7 @@ public class FormMain extends javax.swing.JFrame {
         } catch (InterruptedException ex) {
             Logger.getLogger(Manager_Sheet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        btn_adduser.setEnabled(false);
     }//GEN-LAST:event_btn_adduserActionPerformed
 
     private void btn_historyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historyActionPerformed
@@ -259,6 +237,11 @@ public class FormMain extends javax.swing.JFrame {
         senddt.start();
         this.setVisible(false);
     }//GEN-LAST:event_btn_closeActionPerformed
+
+    private void txt_adduserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_adduserKeyPressed
+        // TODO add your handling code here:
+        btn_adduser.setEnabled(true);
+    }//GEN-LAST:event_txt_adduserKeyPressed
         
     /**
      * @param args the command line arguments
@@ -302,13 +285,11 @@ public class FormMain extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JMenuItem open_history;
     private javax.swing.JTable table_main;
     private javax.swing.JTextField txt_adduser;
     // End of variables declaration//GEN-END:variables
