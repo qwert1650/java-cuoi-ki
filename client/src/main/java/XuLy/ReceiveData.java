@@ -60,9 +60,11 @@ public class ReceiveData extends Thread{
                 }
                 kq = true;
                 result();
-//                Forms.Manager_Sheet frmmanager = new Manager_Sheet(list);
                 frmmanager_sheet = new Manager_Sheet(list);
                 frmmanager_sheet.setVisible(true);
+            }
+            else if(temp[0].equals("Fail")){
+                JOptionPane.showMessageDialog(null, "Tài khoản ko tồn tại hoặc mật khẩu không đúng!");
             }
             else if(temp[0].equals("updateContent")){
                 kq = true;
@@ -93,6 +95,12 @@ public class ReceiveData extends Thread{
             }
             else if(temp[0].equals("createtrue")){
                 JOptionPane.showMessageDialog(null, "Đăng kí thành công!");
+            }
+            else if(temp[0].equals("addtrue")){
+                JOptionPane.showMessageDialog(null, "Mời thành công");
+            }
+            else if(temp[0].equals("addfalse")){
+                JOptionPane.showMessageDialog(null, "Tài khoản không tồn tại!");
             }
             else if(temp[0].equals("createfalse")){
                 JOptionPane.showMessageDialog(null, "Tài khoản đã tồn tại. Vui lòng chọn tài khoản khác!");

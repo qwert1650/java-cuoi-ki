@@ -1,4 +1,4 @@
-<project name="my-project" default="run" basedir=".">
+<project name="my-project" default="dist" basedir=".">
   <description>simple example build file</description>
 
   <!-- set global properties for this build -->

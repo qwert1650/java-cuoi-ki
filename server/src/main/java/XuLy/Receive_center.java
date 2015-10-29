@@ -138,12 +138,30 @@ public class Receive_center extends Thread{
                 }
             }
             else if(temp[0].equals("addfriend")){
-                List<String> list = new ArrayList<String>();
-                list.add(temp[2]);
-                try {
-                    SheetDAO.add_friend(temp[1],list);
-                } catch (Exception ex) {
-                    Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
+                User u= us.getUserByUsername(temp[1]);
+                if(u != null ){
+                    List<String> list = new ArrayList<String>();
+                    list.add(temp[2]);
+                    try {
+                        SheetDAO.add_friend(temp[1],list);
+                    } catch (Exception ex) {
+                        Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    send_Client sd = new send_Client("addtrue", IPAddress.getHostAddress());
+                    sd.start();
+                    try {
+                        sd.join();
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }else{
+                    send_Client sd = new send_Client("addfalse", IPAddress.getHostAddress());
+                    sd.start();
+                    try {
+                        sd.join();
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Receive_center.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
             else if(temp[0].equals("createuser")){

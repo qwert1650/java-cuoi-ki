@@ -218,6 +218,7 @@ public class FormMain extends javax.swing.JFrame {
             Logger.getLogger(Manager_Sheet.class.getName()).log(Level.SEVERE, null, ex);
         }
         btn_adduser.setEnabled(false);
+        txt_adduser.setText("");
     }//GEN-LAST:event_btn_adduserActionPerformed
 
     private void btn_historyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historyActionPerformed

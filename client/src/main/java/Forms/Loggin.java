@@ -45,6 +45,7 @@ public class Loggin extends javax.swing.JFrame {
         btn_huy = new javax.swing.JButton();
         btn_dangky = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Đăng Nhập"));

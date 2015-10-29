@@ -121,13 +121,9 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="btn_createfile" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="btn_cancel" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="btn_createfile" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="26" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="95" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -142,10 +138,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txt_createfile" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btn_createfile" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btn_cancel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="btn_createfile" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -169,11 +162,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_createfileActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btn_cancel">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="H&#x1ee7;y"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

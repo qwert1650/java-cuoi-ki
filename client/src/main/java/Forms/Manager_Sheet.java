@@ -57,7 +57,6 @@ public class Manager_Sheet extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txt_createfile = new javax.swing.JTextField();
         btn_createfile = new javax.swing.JButton();
-        btn_cancel = new javax.swing.JButton();
         btn_refresh = new javax.swing.JButton();
 
         table_sheet.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -87,8 +86,6 @@ public class Manager_Sheet extends javax.swing.JFrame {
             }
         });
 
-        btn_cancel.setText("Hủy");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -100,11 +97,8 @@ public class Manager_Sheet extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btn_createfile)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_cancel)))
-                        .addGap(0, 26, Short.MAX_VALUE)))
+                            .addComponent(btn_createfile))
+                        .addGap(0, 95, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -115,9 +109,7 @@ public class Manager_Sheet extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_createfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_createfile)
-                    .addComponent(btn_cancel))
+                .addComponent(btn_createfile)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -272,7 +264,6 @@ public class Manager_Sheet extends javax.swing.JFrame {
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_cancel;
     private javax.swing.JButton btn_createfile;
     private javax.swing.JButton btn_open;
     private javax.swing.JButton btn_refresh;
